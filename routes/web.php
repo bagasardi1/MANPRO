@@ -45,7 +45,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     // Rute Admin yang Dilindungi (Hanya bisa diakses setelah login)
-    Route::middleware(['auth:admin,super_admin'])->group(function () {
+    Route::middleware(['auth:admin'])->group(function () {
+
         
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
