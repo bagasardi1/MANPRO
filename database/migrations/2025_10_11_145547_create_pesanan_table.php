@@ -30,9 +30,6 @@ return new class extends Migration
         $table->unsignedBigInteger('id_promo')->nullable(); // FK, bisa null
         $table->foreign('id_promo')->references('id_promo')->on('promo');
         
-        $table->unsignedBigInteger('id_slot_booking')->nullable(); // FK, bisa null
-        $table->foreign('id_slot_booking')->references('id_slot_booking')->on('slot_booking');
-        
         $table->timestamps();
     });
 }

@@ -10,23 +10,22 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('admin', function (Blueprint $table) {
-        $table->id('id_admin'); // PK
-        $table->string('nama');
-        $table->string('email')->unique();
-        $table->string('password');
-        
-        $table->unsignedBigInteger('id_super_admin'); // FK
-        $table->foreign('id_super_admin')->references('id_super_admin')->on('super_admin');
+    {
+        Schema::create('admin', function (Blueprint $table) {
+            $table->id('id_admin'); // Primary Key
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->string('password');
 
-        $table->boolean('bisa_kelola_produk')->default(false);
-        $table->boolean('bisa_kelola_pesanan')->default(false);
-        $table->boolean('bisa_kelola_promo')->default(false);
-        $table->boolean('bisa_lihat_laporan')->default(false);
-        $table->timestamps();
-    });
-}
+            // Hak akses admin
+            $table->boolean('bisa_kelola_produk')->default(false);
+            $table->boolean('bisa_kelola_pesanan')->default(false);
+            $table->boolean('bisa_kelola_promo')->default(false);
+            $table->boolean('bisa_lihat_laporan')->default(false);
+
+            $table->timestamps(); // created_at & updated_at
+        });
+    }
 
     /**
      * Reverse the migrations.
