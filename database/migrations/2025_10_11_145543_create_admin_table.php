@@ -7,28 +7,21 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Jalankan migrasi.
      */
     public function up(): void
     {
         Schema::create('admin', function (Blueprint $table) {
-            $table->id('id_admin'); // Primary Key
+            $table->id('id_admin'); // Primary key
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
-
-            // Hak akses admin
-            $table->boolean('bisa_kelola_produk')->default(false);
-            $table->boolean('bisa_kelola_pesanan')->default(false);
-            $table->boolean('bisa_kelola_promo')->default(false);
-            $table->boolean('bisa_lihat_laporan')->default(false);
-
-            $table->timestamps(); // created_at & updated_at
+            $table->timestamps(); // otomatis buat created_at & updated_at
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Batalkan migrasi.
      */
     public function down(): void
     {

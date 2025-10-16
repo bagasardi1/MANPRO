@@ -13,47 +13,42 @@ class AdminLoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.admin-login'); // Kita akan buat view ini nanti
+        // Disarankan: resources/views/admin/auth/login.blade.php
+        return view('admin.auth.login');
     }
 
     /**
-     * Menangani proses login.
+     * Menangani proses login admin.
      */
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        // Mencoba login ke guard 'admin'
-        if (Auth::guard('admin')->attempt($credentials)) {
+        // Hanya login lewat guard 'admin'
+        if (Auth::guard('admin')->attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin/dashboard'); // Arahkan ke dashboard admin
+            return redirect()->intended('/admin/dashboard');
         }
 
-        // Mencoba login ke guard 'super_admin'
-        if (Auth::guard('super_admin')->attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/admin/dashboard'); // Arahkan ke dashboard admin
-        }
-
+        // Jika gagal login
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
     }
 
     /**
-     * Menangani proses logout.
+     * Menangani logout admin.
      */
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
-        Auth::guard('super_admin')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('admin.login');
     }
 }

@@ -10,21 +10,20 @@ class Admin extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // Nama tabel dan primary key
     protected $table = 'admin';
     protected $primaryKey = 'id_admin';
 
+    // Kolom yang bisa diisi
     protected $fillable = [
-        'nama', 'email', 'password', 'id_super_admin', 'bisa_kelola_produk',
-        'bisa_kelola_pesanan', 'bisa_kelola_promo', 'bisa_lihat_laporan',
+        'nama',
+        'email',
+        'password',
     ];
 
-    protected $hidden = ['password'];
-
-    /**
-     * Relasi: Satu Admin dimiliki oleh satu Super Admin.
-     */
-    public function superAdmin()
-    {
-        return $this->belongsTo(SuperAdmin::class, 'id_super_admin', 'id_super_admin');
-    }
+    // Kolom yang disembunyikan dari array/json
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }
