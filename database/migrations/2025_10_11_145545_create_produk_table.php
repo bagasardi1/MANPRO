@@ -12,19 +12,18 @@ return new class extends Migration
     public function up(): void
 {
     Schema::create('produk', function (Blueprint $table) {
-        $table->id('id_produk'); // PK
-        $table->string('nama_produk');
-        $table->text('deskripsi');
-        $table->decimal('harga', 10, 2);
-        $table->integer('stok');
-        $table->string('url_gambar')->nullable();
-        $table->string('status');
+    $table->id('id_produk');
+    $table->unsignedBigInteger('id_kategori')->nullable(); // Tambah kolom kategori
+    $table->string('nama_produk');
+    $table->text('deskripsi')->nullable();
+    $table->decimal('harga', 10, 2);
+    $table->integer('stok')->default(0);
+    $table->string('gambar')->nullable();
+    $table->timestamps();
 
-        $table->unsignedBigInteger('id_kategori'); // FK
-        $table->foreign('id_kategori')->references('id_kategori')->on('kategori');
-        
-        $table->timestamps();
-    });
+    $table->foreign('id_kategori')->references('id_kategori')->on('kategori')->onDelete('set null');
+});
+
 }
 
     /**
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produk');
+        Schema::dropIfExists('produks');
     }
 };

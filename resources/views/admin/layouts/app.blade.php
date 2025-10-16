@@ -7,15 +7,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark mb-4">
-        <div class="container">
+    <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div>
             <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Shinta Bakery Admin</a>
-            <form action="{{ route('admin.logout') }}" method="POST">
-                @csrf
-                <button class="btn btn-outline-light btn-sm" type="submit">Logout</button>
-            </form>
         </div>
-    </nav>
+        <form action="{{ route('admin.logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+        </form>
+    </div>
+</nav>
+
 
     <div class="container">
         @yield('content')
