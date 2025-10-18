@@ -22,6 +22,12 @@ class Produk extends Model
         'id_kategori',
     ];
 
+    protected $casts = [
+    'harga' => 'float',
+    'stok' => 'integer',
+];
+
+
     // Relasi ke tabel kategori
     public function kategori()
     {
