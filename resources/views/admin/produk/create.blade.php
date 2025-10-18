@@ -72,9 +72,13 @@
 
                 {{-- Gambar --}}
                 <div class="mb-3">
-                    <label for="gambar" class="form-label">Gambar Produk</label>
-                    <input class="form-control" type="file" id="gambar" name="gambar" accept="image/*">
+                    <label for="url_gambar" class="form-label">Gambar Produk</label>
+                    <input class="form-control" type="file" id="url_gambar" name="url_gambar" accept="image/*"
+                        onchange="previewImage(event)">
                     <small class="text-muted">Format: JPG, PNG. Maks 2MB.</small>
+                    <div class="mt-3">
+                        <img id="preview" src="#" alt="Preview Gambar" style="max-width: 200px; display: none;" class="img-thumbnail">
+                    </div>
                 </div>
 
                 {{-- Tombol Aksi --}}
@@ -85,4 +89,19 @@
             </form>
         </div>
     </div>
+
+    {{-- Script Preview Gambar --}}
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            const file = event.target.files[0];
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+            }
+        }
+    </script>
 @endsection
