@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-
-    public function kategori()
-{
-    return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
-}
-
     use HasFactory;
 
     protected $table = 'produk';
@@ -23,6 +17,20 @@ class Produk extends Model
         'deskripsi',
         'harga',
         'stok',
-        'gambar',
+        'url_gambar', 
+        'status',
+        'id_kategori',
     ];
+
+    protected $casts = [
+    'harga' => 'float',
+    'stok' => 'integer',
+];
+
+
+    // Relasi ke tabel kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
+    }
 }
